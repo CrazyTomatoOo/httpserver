@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	configPath = flag.String("config", "/Users/zhangshijie/go/src/HttpServer/conf/config.yaml", "config path")
+	configPath = flag.String("config", "conf/config.yaml", "config path")
 )
 
 func main() {

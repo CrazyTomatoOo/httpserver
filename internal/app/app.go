@@ -1,10 +1,12 @@
 package app
 
 import (
+	"HttpServer/configs"
 	"HttpServer/internal/router"
 	"HttpServer/internal/server"
 	"HttpServer/pkg/middleware"
 	"context"
+	"github.com/spf13/viper"
 	"net/http"
 	"os"
 	"time"
@@ -31,7 +33,7 @@ func (app *App) Run(s *server.Server) {
 	app.engine.Use(middleware.AccessLog())
 	router.RegisterAll(app.engine, s)
 	app.http = &http.Server{
-		Addr:    ":8088",
+		Addr:    viper.GetString(configs.Addr),
 		Handler: app.engine,
 	}
 
