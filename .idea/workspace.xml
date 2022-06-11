@@ -5,30 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9a877219-132a-45cf-94c2-47b2e4513707" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/HttpServer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/api.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/cmd/http_server/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/conf/config.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/configs/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/app/app.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/controllers/healthz.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/controllers/insert.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/controllers/query.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/router/api.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/router/register.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/router/router.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/server/server.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/utils/types.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/consts/consts.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/database/database.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/middleware/middlewares.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/utils/response.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pkg/utils/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/http_server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/http_server/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/configs/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/app.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
