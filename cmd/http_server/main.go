@@ -4,7 +4,6 @@ import (
 	"HttpServer/configs"
 	"HttpServer/internal/app"
 	"HttpServer/internal/server"
-	"HttpServer/pkg/consts"
 	"flag"
 	log "github.com/sirupsen/logrus"
 	"os"
@@ -16,9 +15,8 @@ var (
 )
 
 func main() {
+	flag.Parse()
 	configs.Init(*configPath)
-
-	os.Setenv(consts.Version, "v1.0")
 
 	s := server.NewServer()
 	s.Init()
