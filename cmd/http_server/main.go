@@ -6,6 +6,7 @@ import (
 	"HttpServer/internal/server"
 	"flag"
 	log "github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 	"os"
 	"os/signal"
 )
@@ -17,6 +18,13 @@ var (
 func main() {
 	flag.Parse()
 	configs.Init(*configPath)
+
+	level, err := log.ParseLevel(viper.GetString("log_level"))
+	if err != nil {
+		log.Error("Unknown log level, set info")
+		level = log.InfoLevel
+	}
+	log.SetLevel(level)
 
 	s := server.NewServer()
 	s.Init()

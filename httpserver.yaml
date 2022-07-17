@@ -1,0 +1,124 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: httpserver
+  name: httpserver-config
+  namespace: my
+data:
+  config.yaml: |
+    log_level: "info"
+    version: "v1.0"
+    address: ":8080"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: httpserver
+  namespace: my
+  name: httpserver-svc
+spec:
+  ports:
+    - port: 80
+      name: http
+      nodePort: 30001
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: httpserver
+  sessionAffinity: None
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: httpserver
+  name: httpserver
+  namespace: my
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpserver
+  template:
+    metadata:
+      labels:
+        app: httpserver
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: httpserver
+          command:
+            - /bin/sh
+            - -c
+            - "/httpserver/httpserver --config=/httpserver/config.yaml"
+          env:
+            - name: VERSION
+              value: "v1.0"
+          image: crazytomato/httpserver:v2.0
+          ports:
+            - containerPort: 8080
+              name: http
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /api/v1/zsj/healthz
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /api/v1/zsj/healthz
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - "/bin/sh"
+                  - "-c"
+                  - "echo 'Stopping'; sleep 10"
+          resources:
+            limits:
+              cpu: 200m
+              memory: 200Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          volumeMounts:
+            - mountPath: /httpserver/config.yaml
+              name: config
+              subPath: config.yaml
+      volumes:
+        - name: config
+          configMap:
+            defaultMode: 0444
+            name: httpserver-config
+            items:
+              - key: config.yaml
+                path: config.yaml
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 1m
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+  labels:
+    app: httpserver
+  name: httpserver-ingress
+  namespace: my
+spec:
+  rules:
+    - host: "my.k8s.domain"
+      http:
+        paths:
+          - backend:
+              serviceName: httpserver-svc
+              servicePort: 30000
+            path: "/httpserver"
