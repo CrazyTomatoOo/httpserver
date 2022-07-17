@@ -66,11 +66,13 @@ spec:
           livenessProbe:
             httpGet:
               port: http
-              path: /zsj/healthz
+              path: /api/v1/zsj/healthz
+            initialDelaySeconds: 10
+            periodSeconds: 5
           readinessProbe:
             httpGet:
               port: http
-              path: /zsj/healthz
+              path: /api/v1/zsj/healthz
           lifecycle:
             preStop:
               exec:
@@ -86,12 +88,13 @@ spec:
               cpu: 100m
               memory: 100Mi
           volumeMounts:
-            - mountPath: /config/config.yaml
+            - mountPath: /httpserver/config.yaml
               name: config
+              subPath: config.yaml
       volumes:
         - name: config
           configMap:
-            defaultMode: 420
+            defaultMode: 0444
             name: httpserver-config
             items:
               - key: config.yaml
