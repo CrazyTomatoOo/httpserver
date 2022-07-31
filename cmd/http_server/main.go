@@ -4,6 +4,7 @@ import (
 	"HttpServer/configs"
 	"HttpServer/internal/app"
 	"HttpServer/internal/server"
+	"HttpServer/pkg/metrics"
 	"flag"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -25,6 +26,8 @@ func main() {
 		level = log.InfoLevel
 	}
 	log.SetLevel(level)
+
+	metrics.Register()
 
 	s := server.NewServer()
 	s.Init()

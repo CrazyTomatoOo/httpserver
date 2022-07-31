@@ -5,7 +5,6 @@ import (
 	"HttpServer/internal/server"
 	"HttpServer/internal/utils"
 	pkgutils "HttpServer/pkg/utils"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -51,6 +50,5 @@ func (api *APIRouter) RegisterAll() {
 	apiGroup.GET("/healthz", utils.ViewHandler(controllers.HealthzHandler))
 	apiGroup.GET("/data", utils.ViewHandler(controllers.QueryHandler))
 	apiGroup.POST("/data", utils.ViewHandler(controllers.InsertHandler))
+	
 }
-
-

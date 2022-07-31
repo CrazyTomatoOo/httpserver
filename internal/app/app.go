@@ -4,8 +4,10 @@ import (
 	"HttpServer/configs"
 	"HttpServer/internal/router"
 	"HttpServer/internal/server"
+	"HttpServer/pkg/metrics"
 	"HttpServer/pkg/middleware"
 	"context"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/viper"
 	"net/http"
 	"os"
@@ -31,7 +33,11 @@ func (app *App) Run(s *server.Server) {
 	app.engine.Use(middleware.GenRequestID())
 	app.engine.Use(middleware.AddVersion())
 	app.engine.Use(middleware.AccessLog())
+
 	router.RegisterAll(app.engine, s)
+
+	app.engine.GET("/metrics", metrics.PromHandler(promhttp.Handler()))
+
 	app.http = &http.Server{
 		Addr:    viper.GetString(configs.Addr),
 		Handler: app.engine,
