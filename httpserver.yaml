@@ -48,6 +48,9 @@ spec:
     metadata:
       labels:
         app: httpserver
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
     spec:
       terminationGracePeriodSeconds: 60
       containers:
@@ -59,10 +62,11 @@ spec:
           env:
             - name: VERSION
               value: "v1.0"
-          image: crazytomato/httpserver:v2.0
+          image: crazytomato/httpserver:v3.0
           ports:
             - containerPort: 8080
               name: http
+              protocol: TCP
           livenessProbe:
             httpGet:
               port: http
