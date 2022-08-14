@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: httpserver
+    istio: ingressgateway
+  namespace: my
+  name: httpserver-svc
+spec:
+  ports:
+    - port: 80
+      name: http
+      nodePort: 30001
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: httpserver
+    istio: ingressgateway
+  sessionAffinity: None
+  type: NodePort
