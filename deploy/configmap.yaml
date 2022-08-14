@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: httpserver
+  name: httpserver-config
+  namespace: my
+data:
+  config.yaml: |
+    log_level: "info"
+    version: "v1.0"
+    address: ":8080"
